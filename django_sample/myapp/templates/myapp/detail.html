@@ -1,0 +1,13 @@
+<h1>{{ employee.last_name }}{{ employee.first_name }}</h1>
+<ul>
+    <li>{{ employee.employee_id }}</li>
+    <li>{{ employee.created_at }}</li>
+    <li>{{ employee.updated_at }}</li>
+</ul>
+<form method="post">
+    <!-- <input type="text" value="{{employee.last_name}}" name="last_name">
+    <input type="text" value="{{employee.first_name}}" name="first_name"> -->
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" id="button" name="button" value="送信">
+</form>

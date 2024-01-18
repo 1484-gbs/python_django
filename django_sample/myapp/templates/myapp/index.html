@@ -1,0 +1,13 @@
+{% if employees %}
+<table border="1">
+    {% for e in employees %}
+    <tr>
+        <td>{{ e.last_name}} {{e.first_name }}</td>
+        <td><a href="delete/{{ e.employee_id }}">delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No employees are available.</p>
+{% endif %}
+<a href="/myapp/create/">create</a>
