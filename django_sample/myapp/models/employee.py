@@ -17,9 +17,9 @@ class Employee(models.Model):
         db_table = "employee"
 
     @staticmethod
-    def delete(employee_id):
+    def deleteFromMyapp(employee_id):
         employee = Employee.objects.get(pk=employee_id)
-        return super(Employee, employee).delete()
+        return employee.delete()
 
 
 class EmployeeForm(ModelForm):
