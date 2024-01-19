@@ -8,7 +8,6 @@ logger = logging.getLogger("development")
 
 
 class DetailView(View):
-    # Create your views here.
     def get(self, request, *args, **kwargs):
         return render(
             request,
@@ -17,17 +16,7 @@ class DetailView(View):
         )
 
     def post(self, request, *args, **kwargs):
-        employee_id = kwargs["employee_id"]
-        employee = get_object_or_404(Employee, pk=employee_id)
-        form = EmployeeForm(request.POST, instance=employee)
-        if form.is_valid():
-            form.save()
-        return redirect("index")
-
-    def delete(self, request, *args, **kwargs):
-        employee_id = kwargs["employee_id"]
-        employee = get_object_or_404(Employee, pk=employee_id)
-        employee.delete()
+        EmployeeForm.save(request=request, employee_id=kwargs["employee_id"])
         return redirect("index")
 
 

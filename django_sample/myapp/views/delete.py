@@ -9,8 +9,7 @@ logger = logging.getLogger("development")
 
 class DeleteView(View):
     def get(self, request, *args, **kwargs):
-        employee = Employee.objects.get(pk=kwargs["employee_id"])
-        employee.delete()
+        Employee.delete(employee_id=kwargs["employee_id"])
         return redirect("index")
 
 

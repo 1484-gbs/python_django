@@ -16,18 +16,10 @@ class Employee(models.Model):
     class Meta:
         db_table = "employee"
 
-    # def __str__(self):
-    #     return ' '.join([self.employee_id, self.first_name, self.last_name, self.createdAt, self.updatedAt])
-
-    # @staticmethod
-    # def register(id, first_name, last_name):
-    #     # e = get_object_or_404(Employee, pk=id)
-    #     e = Employee()
-    #     e.employee_id = id
-    #     e.first_name = first_name
-    #     e.last_name = last_name
-    #     e.save()
-    #     return e
+    @staticmethod
+    def delete(employee_id):
+        employee = Employee.objects.get(pk=employee_id)
+        return super(Employee, employee).delete()
 
 
 class EmployeeForm(ModelForm):
@@ -39,3 +31,14 @@ class EmployeeForm(ModelForm):
     def of(employee_id):
         employee = get_object_or_404(Employee, pk=employee_id)
         return EmployeeForm(instance=employee)
+
+    @staticmethod
+    def save(request, employee_id=None):
+        form = (
+            EmployeeForm(
+                request.POST, instance=get_object_or_404(Employee, pk=employee_id)
+            )
+            if (employee_id)
+            else EmployeeForm(request.POST)
+        )
+        return super(EmployeeForm, form).save()

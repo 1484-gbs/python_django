@@ -2,7 +2,7 @@
 <table border="1">
     {% for e in employees %}
     <tr>
-        <td>{{ e.last_name}} {{e.first_name }}</td>
+        <td><a href="{{ e.employee_id }}">{{ e.last_name}} {{e.first_name }}</a></td>
         <td><a href="delete/{{ e.employee_id }}">delete</a></td>
     </tr>
     {% endfor %}
