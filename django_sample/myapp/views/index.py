@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.views import View
-from myapp.models.employee import Employee
+from api.models import Employee
 
 
-# Create your views here.
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         return render(

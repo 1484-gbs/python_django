@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from myapp.models import Employee
+from api.models import Employee
 from api.serializers import EmployeeSerializer
 
 
