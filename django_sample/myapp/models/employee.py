@@ -16,11 +16,6 @@ class Employee(models.Model):
     class Meta:
         db_table = "employee"
 
-    @staticmethod
-    def deleteFromMyapp(employee_id):
-        employee = Employee.objects.get(pk=employee_id)
-        return employee.delete()
-
 
 class EmployeeForm(ModelForm):
     class Meta:
@@ -42,3 +37,8 @@ class EmployeeForm(ModelForm):
             else EmployeeForm(request.POST)
         )
         return super(EmployeeForm, form).save()
+
+    @staticmethod
+    def delete(employee_id):
+        employee = Employee.objects.get(pk=employee_id)
+        return employee.delete()

@@ -21,5 +21,5 @@ from api.urls import router as api_router
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("myapp/", include("myapp.urls")),
-    path("api/", include(api_router.urls)),
+    path("myapp/api/", include(api_router.urls)),
 ]

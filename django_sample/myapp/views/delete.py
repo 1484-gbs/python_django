@@ -1,15 +1,14 @@
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
-from django.views import View
-from myapp.models.employee import Employee, EmployeeForm
+from django.shortcuts import redirect
+from myapp.views.abstract_login_view import AbstractLoginRequiredView
+from myapp.models.employee import EmployeeForm
 import logging
 
 logger = logging.getLogger("development")
 
 
-class DeleteView(View):
+class DeleteView(AbstractLoginRequiredView):
     def get(self, request, *args, **kwargs):
-        Employee.deleteFromMyapp(employee_id=kwargs["employee_id"])
+        EmployeeForm.delete(employee_id=kwargs["employee_id"])
         return redirect("index")
 
 

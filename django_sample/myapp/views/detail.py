@@ -1,13 +1,12 @@
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
-from django.views import View
-from myapp.models.employee import Employee, EmployeeForm
+from django.shortcuts import redirect, render
+from myapp.views.abstract_login_view import AbstractLoginRequiredView
+from myapp.models.employee import EmployeeForm
 import logging
 
 logger = logging.getLogger("development")
 
 
-class DetailView(View):
+class DetailView(AbstractLoginRequiredView):
     def get(self, request, *args, **kwargs):
         return render(
             request,
