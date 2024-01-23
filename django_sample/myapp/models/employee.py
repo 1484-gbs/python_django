@@ -1,7 +1,25 @@
 from django.forms import ModelForm
-from api.models.employee import Employee
+from django.db import models
+import uuid
 
 from django.shortcuts import get_object_or_404
+
+
+# Create your models here.
+class Employee(models.Model):
+    employee_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    first_name = models.CharField(max_length=20, default="", blank=False)
+    last_name = models.CharField(max_length=20, default="", blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "employee"
+
+    @staticmethod
+    def deleteFromMyapp(employee_id):
+        employee = Employee.objects.get(pk=employee_id)
+        return employee.delete()
 
 
 class EmployeeForm(ModelForm):
@@ -24,8 +42,3 @@ class EmployeeForm(ModelForm):
             else EmployeeForm(request.POST)
         )
         return super(EmployeeForm, form).save()
-
-    @staticmethod
-    def delete(employee_id):
-        employee = Employee.objects.get(pk=employee_id)
-        return employee.delete()
