@@ -11,4 +11,7 @@
 <p>No employees are available.</p>
 {% endif %}
 <a href="/myapp/create/">create</a>
-<a href="/myapp/logout/">logout</a>
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <p><input type="submit" value="ログアウト"></p>
+</form>

@@ -4,7 +4,7 @@ from myapp.models.user import LogoutForm
 
 
 class LogoutView(AbstractLoginRequiredView):
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         LogoutForm.execute(request)
         return redirect("login")
 

@@ -5,7 +5,10 @@ from myapp.models.user import LoginForm
 
 class LoginView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, "myapp/login.html", {"form": LoginForm()})
+        if self.request.user.is_authenticated:
+            return redirect("index")
+        else:
+            return render(request, "myapp/login.html", {"form": LoginForm()})
 
     def post(self, request, *args, **kwargs):
         form = LoginForm.execute(request)

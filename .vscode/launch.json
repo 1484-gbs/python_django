@@ -10,7 +10,9 @@
             "request": "launch",
             "program": "${workspaceFolder}\\django_sample\\manage.py",
             "args": [
-                "runserver"
+                "runserver",
+                // adminサイトのcssなどの読み込みに必要（settings.DEBUG = Falseの場合）
+                "--insecure"
             ],
             "django": true,
             "justMyCode": true
