@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "myapp.apps.MyappConfig",
     "api",
     "rest_framework",
+    "shellapp.apps.ShellappConfig",
 ]
 
 MIDDLEWARE = [
@@ -88,7 +89,15 @@ DATABASES = {
         "PASSWORD": "postgres",
         "HOST": "localhost",
         "PORT": "5432",
-    }
+    },
+    "database2": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "employee",
+        "USER": "admin",
+        "PASSWORD": "admin",
+        "HOST": "127.0.0.1",  # your_host
+        "PORT": "3306",  # your_port
+    },
 }
 
 
