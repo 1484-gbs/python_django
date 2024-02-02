@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "api",
     "rest_framework",
     "shellapp.apps.ShellappConfig",
+    #    "syncapp.apps.SyncappConfig",
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,17 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_URL = "/myapp/login/"
+
+IAM_ACCESS_KEY = "minioadmin"
+
+IAM_SECRET_KEY = "minioadmin"
+
+S3_URL = "http://127.0.0.1:9000"
+
+SYNC_DATA_BUCKET = "pythondjango"
+
+SYNC_BATCH_SIZE = 3
+
+TRANSFER_CHUNK_SIZE = 7
+
+TRANSFER_BATCH_SIZE = 3
