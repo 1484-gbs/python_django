@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "api",
     "rest_framework",
     "shellapp.apps.ShellappConfig",
-    #    "syncapp.apps.SyncappConfig",
+    "syncapp.apps.SyncappConfig",
 ]
 
 MIDDLEWARE = [
@@ -152,6 +152,8 @@ IAM_SECRET_KEY = "minioadmin"
 S3_URL = "http://127.0.0.1:9000"
 
 SYNC_DATA_BUCKET = "pythondjango"
+
+SYNC_CHUNK_SIZE = 3
 
 SYNC_BATCH_SIZE = 3
 
