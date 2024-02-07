@@ -9,6 +9,7 @@ class OriginEmployee(models.Model):
     employee_id = models.AutoField(primary_key=True, editable=False)
     first_name = models.CharField(max_length=20, default="", blank=False)
     last_name = models.CharField(max_length=20, default="", blank=False)
+    token_id = models.CharField(max_length=256, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -29,12 +30,12 @@ class OriginEmployee(models.Model):
         for page_idx in range(1, paginator.num_pages + 1):
             obj_list = paginator.page(page_idx).object_list
             print(obj_list)
-            employees = list(
-                map(
-                    lambda o: Employee(first_name=o.first_name, last_name=o.last_name),
-                    obj_list,
+            employees = [
+                Employee(
+                    first_name=o.first_name, last_name=o.last_name, token_id=o.token_id
                 )
-            )
+                for o in obj_list
+            ]
             print(len(employees))
             for employee in employees:
                 print(
@@ -43,9 +44,10 @@ class OriginEmployee(models.Model):
                             str(employee.employee_id),
                             employee.first_name,
                             employee.last_name,
+                            employee.token_id,
                         ]
                     )
                 )
 
-            Employee.objects.bulk_create(employees, settings.TRANSFER_BATCH_SIZE)
+            Employee.bulk_upsert(employees, settings.TRANSFER_BATCH_SIZE)
             print("bulk_create")

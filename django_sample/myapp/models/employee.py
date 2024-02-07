@@ -11,11 +11,22 @@ class Employee(models.Model):
     employee_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     first_name = models.CharField(max_length=20, default="", blank=False)
     last_name = models.CharField(max_length=20, default="", blank=False)
+    token_id = models.CharField(max_length=256, unique=True, default=uuid.uuid4)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = "employee"
+
+    @staticmethod
+    def bulk_upsert(employees, batch_size):
+        Employee.objects.bulk_create(
+            employees,
+            batch_size,
+            update_conflicts=True,
+            unique_fields=["token_id"],
+            update_fields=["first_name", "last_name", "updated_at"],
+        )
 
 
 class EmployeeForm(ModelForm):
@@ -57,7 +68,7 @@ class EmployeeSearchForm(forms.Form):
             )
             if self.data
             else Employee.objects.all()
-        ).order_by("employee_id")
+        ).order_by("first_name", "last_name")
 
         paginator = Paginator(employees, count)
         try:

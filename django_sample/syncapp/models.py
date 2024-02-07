@@ -10,6 +10,7 @@ from myapp.models.employee import Employee
 class SyncEmployee(models.Model):
     first_name = models.CharField(max_length=20, default="", blank=False)
     last_name = models.CharField(max_length=20, default="", blank=False)
+    token_id = models.CharField(max_length=256, default="", blank=False)
 
     class Meta:
         managed = False
@@ -35,13 +36,21 @@ class SyncEmployee(models.Model):
         print(data)
         for d in data:
             syncEmployees = [
-                SyncEmployee(first_name=row.first_name, last_name=row.last_name)
+                SyncEmployee(
+                    first_name=row.first_name,
+                    last_name=row.last_name,
+                    token_id=row.token_id,
+                )
                 for index, row in d.iterrows()
             ]
             print(syncEmployees)
 
             employees = [
-                Employee(first_name=sync.first_name, last_name=sync.last_name)
+                Employee(
+                    first_name=sync.first_name,
+                    last_name=sync.last_name,
+                    token_id=sync.token_id,
+                )
                 for sync in syncEmployees
             ]
 
@@ -56,5 +65,5 @@ class SyncEmployee(models.Model):
                         ]
                     )
                 )
-            Employee.objects.bulk_create(employees, settings.SYNC_BATCH_SIZE)
+            Employee.bulk_upsert(employees, settings.SYNC_BATCH_SIZE)
             print("bulk_create")
