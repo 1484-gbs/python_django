@@ -1,8 +1,9 @@
 from django.forms import ModelForm
+from django import forms
 from django.db import models
 import uuid
-
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your models here.
@@ -42,3 +43,28 @@ class EmployeeForm(ModelForm):
     def delete(employee_id):
         employee = Employee.objects.get(pk=employee_id)
         return employee.delete()
+
+
+class EmployeeSearchForm(forms.Form):
+    first_name = forms.CharField(label="first_name", required=False)
+    last_name = forms.CharField(label="last_name", required=False)
+
+    def get_employees(self, page: int = 1, count: int = 5):
+        employees = (
+            Employee.objects.filter(
+                first_name__contains=self.data["first_name"],
+                last_name__contains=self.data["last_name"],
+            )
+            if self.data
+            else Employee.objects.all()
+        ).order_by("employee_id")
+
+        paginator = Paginator(employees, count)
+        try:
+            page_obj = paginator.page(page)
+        except PageNotAnInteger:
+            page_obj = paginator.page(1)
+        except EmptyPage:
+            page_obj = paginator.page(paginator.num_pages)
+
+        return page_obj

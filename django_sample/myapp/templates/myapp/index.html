@@ -1,3 +1,8 @@
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <p><input type="submit" value="検索"></p>
+</form>
 {% if employees %}
 <table border="1">
     {% for e in employees %}
@@ -7,10 +12,31 @@
     </tr>
     {% endfor %}
 </table>
+<!-- ページング処理の部分 -->
+<!-- 「前へ」の部分 -->
+{% if page_obj.has_previous %}
+<a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+{% endif %}
+
+<!-- 数字部分 -->
+{% for num in page_obj.paginator.page_range %}
+{% if page_obj.number == num %}
+<span>{{ num }}</span>
+{% else %}
+<a href="?page={{ num }}">{{ num }}</a>
+{% endif %}
+{% endfor %}
+
+<!-- 「次へ」 の部分 -->
+{% if page_obj.has_next %}
+<a href="?page={{ page_obj.next_page_number }}">次へ</a>
+{% endif %}
+
 {% else %}
 <p>No employees are available.</p>
+
 {% endif %}
-<a href="/myapp/create/">create</a>
+<p><a href="/myapp/create/">create</a></p>
 <form action="{% url 'logout' %}" method="post">
     {% csrf_token %}
     <p><input type="submit" value="ログアウト"></p>
