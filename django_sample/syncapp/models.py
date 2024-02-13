@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 import boto3
 from io import StringIO
+from django.forms import model_to_dict
 import pandas as pd
 from myapp.models.employee import Employee
 
@@ -15,8 +16,8 @@ class SyncEmployee(models.Model):
     class Meta:
         managed = False
 
-    @staticmethod
-    def execute():
+    @classmethod
+    def execute(cls):
         print("sync_csv")
 
         s3 = boto3.resource(
@@ -45,14 +46,7 @@ class SyncEmployee(models.Model):
             ]
             print(syncEmployees)
 
-            employees = [
-                Employee(
-                    first_name=sync.first_name,
-                    last_name=sync.last_name,
-                    token_id=sync.token_id,
-                )
-                for sync in syncEmployees
-            ]
+            employees = [cls.convertToEmployee(sync) for sync in syncEmployees]
 
             print(len(employees))
             for employee in employees:
@@ -67,3 +61,9 @@ class SyncEmployee(models.Model):
                 )
             Employee.bulk_upsert(employees, settings.SYNC_BATCH_SIZE)
             print("bulk_create")
+
+    @staticmethod
+    def convertToEmployee(sync):
+        obj = model_to_dict(sync, exclude=["id"])
+        print(obj)
+        return Employee(**obj)

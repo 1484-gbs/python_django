@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import model_to_dict
 from myapp.models.employee import Employee
 from django.conf import settings
 from django.core.paginator import Paginator
@@ -30,12 +31,7 @@ class OriginEmployee(models.Model):
         for page_idx in range(1, paginator.num_pages + 1):
             obj_list = paginator.page(page_idx).object_list
             print(obj_list)
-            employees = [
-                Employee(
-                    first_name=o.first_name, last_name=o.last_name, token_id=o.token_id
-                )
-                for o in obj_list
-            ]
+            employees = [Employee(**model_to_dict(o)) for o in obj_list]
             print(len(employees))
             for employee in employees:
                 print(
