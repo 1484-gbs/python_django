@@ -8,10 +8,15 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your models here.
 class Employee(models.Model):
+    class TestEnum(models.IntegerChoices):
+        ZERO = 0
+        ONE = 1
+
     employee_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     first_name = models.CharField(max_length=20, default="", blank=False)
     last_name = models.CharField(max_length=20, default="", blank=False)
     token_id = models.CharField(max_length=256, unique=True, default=uuid.uuid4)
+    testhoge = models.IntegerField(choices=[(0, "Zero"), (1, "One")], null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -20,12 +25,16 @@ class Employee(models.Model):
 
     @staticmethod
     def bulk_upsert(employees, batch_size):
+        columns = [field.name for field in Employee._meta.get_fields()]
+        columns.remove("employee_id")
+        columns.remove("token_id")
+
         Employee.objects.bulk_create(
             employees,
             batch_size,
             update_conflicts=True,
             unique_fields=["token_id"],
-            update_fields=["first_name", "last_name", "updated_at"],
+            update_fields=columns,
         )
 
 
