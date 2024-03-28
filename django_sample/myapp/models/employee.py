@@ -25,9 +25,13 @@ class Employee(models.Model):
 
     @staticmethod
     def bulk_upsert(employees, batch_size):
-        columns = [field.name for field in Employee._meta.get_fields()]
-        columns.remove("employee_id")
-        columns.remove("token_id")
+        columns = [
+            field.name
+            for field in Employee._meta.get_fields()
+            if field.name != "token_id"
+            and field.name != "employee_id"
+            and not isinstance(field, models.ManyToManyRel)
+        ]
 
         Employee.objects.bulk_create(
             employees,
