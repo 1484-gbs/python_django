@@ -28,10 +28,15 @@ class IndexView(AbstractLoginRequiredView):
 
     def __render(self, request, page_obj, form):
         list = page_obj.object_list if page_obj else []
+
         return render(
             request,
             "myapp/index.html",
-            {"employees": list, "form": form, "page_obj": page_obj},
+            {
+                "employees": list,
+                "form": form,
+                "page_obj": page_obj,
+            },
         )
 
 
