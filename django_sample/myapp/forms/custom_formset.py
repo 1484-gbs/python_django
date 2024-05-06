@@ -12,9 +12,7 @@ class SampleForm(forms.Form):
         super(SampleForm, self).__init__(*args, **kwargs)
 
         if "initial" in kwargs:
-            print(has_item)
             mst = kwargs["initial"]
-            print(mst)
             self.fields["guitar"] = forms.ChoiceField(
                 choices=[("", "")] + [(mst["cd"], mst["value"])],
                 label=mst["name"],

@@ -4,6 +4,7 @@ from django.db import models
 import uuid
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Prefetch
 
 
 # Create your models here.
@@ -50,6 +51,12 @@ class EmployeeForm(ModelForm):
     @staticmethod
     def of(employee_id):
         employee = get_object_or_404(Employee, pk=employee_id)
+        entity = (
+            Employee.objects.prefetch_related(Prefetch("employee_skill", to_attr="es"))
+            .filter(pk=employee_id)
+            .first()
+        )
+        print(entity.__dict__)
         return EmployeeForm(instance=employee)
 
     @staticmethod
