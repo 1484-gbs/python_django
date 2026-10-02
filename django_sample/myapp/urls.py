@@ -1,5 +1,5 @@
-from django.urls import path
-
+from django.urls import include, path
+from two_factor.urls import urlpatterns as tf_urls
 from . import views
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path("signup/", views.signup, name="signup"),
     path("login/", views.login, name="login"),
     path("logout/", views.logout, name="logout"),
+    path("", include(tf_urls)),
 ]

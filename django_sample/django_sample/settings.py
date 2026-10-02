@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-c!v8j62!t#rmq%8gziih!6!zk62)j&9@cypx&9u+9pcjwv+n*6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_otp",
+    "django_otp.plugins.otp_static",
+    "django_otp.plugins.otp_totp",
+    "two_factor",
     "myapp.apps.MyappConfig",
     "api",
     "rest_framework",
@@ -50,6 +54,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django_otp.middleware.OTPMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -91,14 +96,14 @@ DATABASES = {
         "HOST": "localhost",
         "PORT": "5432",
     },
-    "database2": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "employee",
-        "USER": "admin",
-        "PASSWORD": "admin",
-        "HOST": "127.0.0.1",  # your_host
-        "PORT": "3306",  # your_port
-    },
+    # "database2": {
+    #     "ENGINE": "django.db.backends.mysql",
+    #     "NAME": "employee",
+    #     "USER": "admin",
+    #     "PASSWORD": "admin",
+    #     "HOST": "127.0.0.1",  # your_host
+    #     "PORT": "3306",  # your_port
+    # },
 }
 
 
@@ -143,8 +148,14 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGIN_URL = "/myapp/login/"
+LOGIN_URL = "/myapp/account/login/"
+# LOGIN_URL = "two_factor:login"
+# LOGIN_REDIRECT_URL = "myapp:index"
+LOGIN_REDIRECT_URL = "/myapp/"
+TWO_FACTOR_PROFILE_URL = "/myapp/"
 
+TWO_FACTOR_FORCE_OTP = True
+TWO_FACTOR_PROFILE_URL = "myapp:index"
 IAM_ACCESS_KEY = "minioadmin"
 
 IAM_SECRET_KEY = "minioadmin"
