@@ -11,5 +11,16 @@ services:
       - POSTGRES_DB=django_sample
     volumes:
       - db-store:/var/lib/postgressql/data
+
+  postgres_db2:
+    image: postgres:latest
+    ports: 
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=django_sample2
+    # volumes:
+    #   - db-store:/var/lib/postgressql/data
 volumes:
   db-store:

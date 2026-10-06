@@ -6,7 +6,7 @@ from myapp.models.user import LogoutForm
 class LogoutView(AbstractLoginRequiredView):
     def post(self, request, *args, **kwargs):
         LogoutForm.execute(request)
-        return redirect("login")
+        return redirect("two_factor:login")
 
 
 logout = LogoutView.as_view()

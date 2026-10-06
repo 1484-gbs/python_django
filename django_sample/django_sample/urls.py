@@ -14,9 +14,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import include, path
 from api.urls import router as api_router
+from two_factor.admin import AdminSiteOTPRequired
+
+# adminサイトにmfaを強制する
+admin.site.__class__ = AdminSiteOTPRequired
 
 urlpatterns = [
     path("admin/", admin.site.urls),

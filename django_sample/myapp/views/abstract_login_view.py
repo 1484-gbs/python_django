@@ -1,6 +1,6 @@
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
+from two_factor.views.mixins import OTPRequiredMixin
 
 
-class AbstractLoginRequiredView(LoginRequiredMixin, View):
+class AbstractLoginRequiredView(OTPRequiredMixin, View):
     pass

@@ -1,6 +1,22 @@
-from django.urls import path
-
+from django.urls import include, path
+from two_factor.urls import BackupTokensView, DisableView, urlpatterns as tf_urls
+from django.core.exceptions import PermissionDenied
 from . import views
+
+
+# mfaバックアップコードを管理者のみ有効
+class DisabledBackupTokensView(BackupTokensView):
+    def dispatch(self, request, *args, **kwargs):
+        if not (request.user.is_authenticated and request.user.is_staff):
+            raise PermissionDenied()
+        return super().dispatch(request, *args, **kwargs)
+
+
+# mfa無効化を全ユーザー無効
+class DisabledDisableView(DisableView):
+    def dispatch(self, request, *args, **kwargs):
+        raise PermissionDenied()
+
 
 urlpatterns = [
     path("", views.index, name="index"),
@@ -10,4 +26,15 @@ urlpatterns = [
     path("signup/", views.signup, name="signup"),
     path("login/", views.login, name="login"),
     path("logout/", views.logout, name="logout"),
+    path(
+        "account/two_factor/backup/tokens/",
+        DisabledBackupTokensView.as_view(),
+        name="backup_tokens",
+    ),
+    path(
+        "account/two_factor/disable/",
+        DisabledDisableView.as_view(),
+        name="disable_tokens",
+    ),
+    path("", include(tf_urls)),
 ]
