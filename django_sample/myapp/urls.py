@@ -1,6 +1,8 @@
 from django.urls import include, path
 from two_factor.urls import BackupTokensView, DisableView, urlpatterns as tf_urls
 from django.core.exceptions import PermissionDenied
+
+from myapp.views.login import CustomTwoFactorLoginView
 from . import views
 
 
@@ -26,6 +28,7 @@ urlpatterns = [
     path("signup/", views.signup, name="signup"),
     path("login/", views.login, name="login"),
     path("logout/", views.logout, name="logout"),
+    path("account/login/", CustomTwoFactorLoginView.as_view(), name="two_factor_login"),
     path(
         "account/two_factor/backup/tokens/",
         DisabledBackupTokensView.as_view(),
