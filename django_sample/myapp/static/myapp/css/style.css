@@ -1,0 +1,169 @@
+/* ==========================================================================
+   django-two-factor-auth 確定反映用CSS
+   ========================================================================== */
+
+/* 1. カード全体のコンテナ設定 */
+#mfa {
+    max-width: 440px !important;
+    margin: 40px auto !important;
+    padding: 32px !important;
+    background-color: #ffffff !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    box-sizing: border-box !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* 2. 見出しと説明文 */
+#mfa h1,
+#mfa h2 {
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    color: #111827 !important;
+}
+
+#mfa p {
+    font-size: 0.95rem !important;
+    color: #4b5563 !important;
+    margin-bottom: 16px !important;
+}
+
+/* 3. ユーザー名・パスワードの横並び整列 */
+#mfa form p {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 12px !important;
+}
+
+#mfa form label {
+    min-width: 90px !important;
+    text-align: right !important;
+    font-weight: bold !important;
+    font-size: 0.9rem !important;
+    color: #111827 !important;
+}
+
+#mfa form input[type="text"],
+#mfa form input[type="password"] {
+    flex: 1 !important;
+    padding: 6px 10px !important;
+    font-size: 0.95rem !important;
+    border: 1px solid #9ca3af !important;
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
+}
+
+/* 4. ボタンの共通設定（横並び・左寄せ） */
+#mfa form button,
+#mfa form input[type="submit"] {
+    display: inline-block !important;
+    width: auto !important;
+    margin-top: 16px !important;
+    margin-right: 8px !important;
+}
+
+/* 「戻る」ボタン（テキスト風・グレー） */
+#mfa form button[name="wizard_goto_step"],
+#mfa form button[value="prev"],
+#mfa form input[value="戻る"] {
+    background: transparent !important;
+    border: none !important;
+    color: #9ca3af !important;
+    padding: 8px 12px !important;
+    font-size: 0.95rem !important;
+    cursor: pointer !important;
+    border-radius: 4px !important;
+}
+
+#mfa form button[name="wizard_goto_step"]:hover {
+    color: #4b5563 !important;
+    background-color: #f3f4f6 !important;
+}
+
+#mfa button[name="wizard_goto_step"]:not([value="backup"]) {
+    display: none !important;
+}
+
+/* 「次」ボタン（青色・コンパクト） */
+/* #mfa form button[type="submit"]:not([name="wizard_goto_step"]), */
+#mfa .btn-primary,
+#mfa .btn-info {
+    width: 100% !important;
+    /* 枠内いっぱいに広げる */
+    display: block !important;
+    /* ブロック要素化 */
+    box-sizing: border-box !important;
+    /* パディングを含めた幅計算 */
+    text-align: center !important;
+    /* テキストを中央寄せ */
+    margin-right: 0 !important;
+    /* 右余白をリセット */
+    margin-top: 16px !important;
+    /* 上部との余白 */
+
+    background-color: #007bff !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 10px 20px !important;
+    /* 高さを少し出したい場合は10px~12px推奨 */
+    font-size: 0.95rem !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+}
+
+#mfa a,
+#mfa a:hover {
+    text-decoration: none !important;
+}
+
+#mfa button:disabled {
+    display: none !important;
+}
+
+#mfa .float-right.btn.btn-link {
+    display: none !important;
+}
+
+#mfa input[hidden],
+#mfa input[type="submit"][hidden],
+#mfa input[type="submit"][value=""] {
+    display: none !important;
+}
+
+/* バックアップトークンボタン（グレー・「次」ボタンと同サイズ） */
+#mfa button[name="wizard_goto_step"][value="backup"] {
+    /* 形状・サイズ（「次」ボタンと完全同一） */
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 10px 20px !important;
+    margin-top: 12px !important;
+    /* 「次」ボタンとの間の適切な余白 */
+    margin-right: 0 !important;
+    text-align: center !important;
+    font-size: 0.95rem !important;
+    font-weight: bold !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+
+    /* 配色デザイン（上品で可読性の高いグレー） */
+    background-color: #e5e7eb !important;
+    /* ベースのソフトグレー */
+    color: #374151 !important;
+    /* 視認性に優れたダークグレー */
+    border: 1px solid #d1d5db !important;
+    /* 全体を自然に引き締める細枠 */
+    transition: background-color 0.2s ease, border-color 0.2s ease !important;
+}
+
+/* ホバー（マウスホバー時）のインタラクション */
+#mfa button[name="wizard_goto_step"][value="backup"]:hover {
+    background-color: #d1d5db !important;
+    border-color: #9ca3af !important;
+    color: #111827 !important;
+}
