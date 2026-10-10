@@ -155,12 +155,6 @@ LOGIN_REDIRECT_URL = "/myapp/"
 TWO_FACTOR_PROFILE_URL = "/myapp/"
 # TWO_FACTOR_PROFILE_URL = "apps:index"
 
-# mfaを強制する
-TWO_FACTOR_FORCE_OTP = True
-
-# adminサイトのログイン画面はそのままにする
-# TWO_FACTOR_PATCH_ADMIN = False
-
 IAM_ACCESS_KEY = "minioadmin"
 
 IAM_SECRET_KEY = "minioadmin"
