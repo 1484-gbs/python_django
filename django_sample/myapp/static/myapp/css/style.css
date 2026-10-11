@@ -50,11 +50,11 @@
 #mfa form input[type="text"],
 #mfa form input[type="password"] {
     flex: 1 !important;
-    padding: 6px 10px !important;
-    font-size: 0.95rem !important;
-    border: 1px solid #9ca3af !important;
-    border-radius: 4px !important;
     box-sizing: border-box !important;
+    padding: 8px 12px !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 6px !important;
+    font-size: 0.95rem !important;
 }
 
 /* 4. ボタンの共通設定（横並び・左寄せ） */

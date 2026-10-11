@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 
@@ -16,10 +17,21 @@
         {% block two_factor_content %}{% endblock %}
         {% endblock %}
         {% if request.user.is_authenticated and request.user.is_verified %}
+        <!-- URLの名前からパスを取得して変数に格納 -->
+        {% url 'two_factor:setup_complete' as setup_complete_url %}
+        <!-- 現在のページのURLと一致するか判定 -->
+        {% if request.path == setup_complete_url %}
         <a href="/myapp/" class="btn-primary">
-            トップページ
+            トップページへ
+        </a>
+        {% if request.user.is_staff %}
+        <a href="/admin/" class="btn-primary">
+            管理画面へ
         </a>
         {% endif %}
+        {% endif %}
+        {% endif %}
+    </div>
     </div>
 
 </body>
