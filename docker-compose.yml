@@ -1,6 +1,18 @@
-version: '3'
+name: django_sample
 
 services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      # ホストマシンのディレクトリとコンテナ内のディレクトリを同期
+      - .:/usr/src/python_django
+    ports: 
+      - "8000:8000"
+    depends_on:
+      - postgres_db
+
   postgres_db:
     image: postgres:latest
     ports: 

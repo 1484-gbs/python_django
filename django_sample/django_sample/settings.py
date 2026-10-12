@@ -93,7 +93,7 @@ DATABASES = {
         "NAME": "django_sample",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "localhost",
+        "HOST": "postgres_db",
         "PORT": "5432",
     },
     # "database2": {
@@ -155,7 +155,7 @@ LOGIN_REDIRECT_URL = "/myapp/"
 TWO_FACTOR_PROFILE_URL = "/myapp/"
 # TWO_FACTOR_PROFILE_URL = "apps:index"
 # TOTP（認証アプリ）のデフォルト桁数を8桁に変更可能（既存の他桁数がある場合は対応できない様子）
-TWO_FACTOR_TOTP_DIGITS = 8
+# TWO_FACTOR_TOTP_DIGITS = 8
 
 IAM_ACCESS_KEY = "minioadmin"
 
