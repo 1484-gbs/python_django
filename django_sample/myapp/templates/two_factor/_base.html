@@ -19,8 +19,10 @@
         {% if request.user.is_authenticated and request.user.is_verified %}
         <!-- URLの名前からパスを取得して変数に格納 -->
         {% url 'two_factor:setup_complete' as setup_complete_url %}
+        {% url 'two_factor:backup_tokens' as backup_tokens_url %}
+        {% url 'two_factor:profile' as profile_url %}
         <!-- 現在のページのURLと一致するか判定 -->
-        {% if request.path == setup_complete_url %}
+        {% if request.path == setup_complete_url or request.path == backup_tokens_url or request.path == profile_url %}
         <a href="/myapp/" class="btn-primary">
             トップページへ
         </a>

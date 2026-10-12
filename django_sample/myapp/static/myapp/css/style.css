@@ -48,6 +48,7 @@
 }
 
 #mfa form input[type="text"],
+#mfa form input[type="number"],
 #mfa form input[type="password"] {
     flex: 1 !important;
     box-sizing: border-box !important;
