@@ -1,0 +1,7 @@
+{% extends "two_factor/profile/profile.html" %}
+{% block content %}
+{{ block.super }}
+<hr>
+{% include "myapp/passkey_register.html" %}
+<hr>
+{% endblock %}

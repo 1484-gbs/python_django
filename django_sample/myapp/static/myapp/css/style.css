@@ -93,7 +93,9 @@
 
     /* 「次」ボタン（青色・コンパクト） */
     .btn-primary,
-    .btn-info {
+    .btn-info,
+    #passkey-verification-button,
+    #passkey-register-button {
         width: 100% !important;
         display: block !important;
         box-sizing: border-box !important;

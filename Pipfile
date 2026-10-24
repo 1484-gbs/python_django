@@ -65,6 +65,7 @@ wrapt = "*"
 xdis = "*"
 xlrd = "*"
 xlwt = "*"
+django-otp-webauthn = "*"
 
 [dev-packages]
 

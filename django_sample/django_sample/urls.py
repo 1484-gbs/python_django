@@ -19,7 +19,9 @@ from django.contrib import admin
 from django.urls import include, path
 from api.urls import router as api_router
 from two_factor.admin import AdminSiteOTPRequired
+from django_otp_webauthn.models import WebAuthnCredential
 
+admin.site.register(WebAuthnCredential)
 # adminサイトにmfaを強制する
 admin.site.__class__ = AdminSiteOTPRequired
 

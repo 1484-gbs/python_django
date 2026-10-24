@@ -37,6 +37,10 @@
 
 {% endif %}
 <p><a href="/myapp/create/">create</a></p>
+
+<p><a href="/myapp/account/two_factor/">アカウントのセキュリティ(パスキー登録もこちらから)</a></p>
+
+
 <form action="{% url 'logout' %}" method="post">
     {% csrf_token %}
     <p><input type="submit" value="ログアウト"></p>

@@ -1,0 +1,16 @@
+{% load otp_webauthn %}
+{% load i18n %}
+
+<template id="passkey-registration-available-template">
+    <div>
+        <button type="button" id="passkey-register-button">パスキーを登録する</button>
+        <div id="passkey-register-status-message"></div>
+    </div>
+</template>
+
+<template id="passkey-registration-unavailable-template">
+    <p>Sorry, your browser has no Passkey support</p>
+</template>
+<span id="passkey-registration-placeholder"></span>
+
+{% render_otp_webauthn_register_scripts %}

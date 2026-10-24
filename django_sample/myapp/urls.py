@@ -40,4 +40,5 @@ urlpatterns = [
         name="disable_tokens",
     ),
     path("", include(tf_urls)),
+    path("webauthn/", include("django_otp_webauthn.urls", namespace="otp_webauthn")),
 ]

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django_otp",
     "django_otp.plugins.otp_static",
     "django_otp.plugins.otp_totp",
+    "django_otp_webauthn",
     "myapp.apps.MyappConfig",
     "two_factor",
     "api",
@@ -61,6 +62,7 @@ MIDDLEWARE = [
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
+    "django_otp_webauthn.backends.WebAuthnBackend",
 ]
 
 ROOT_URLCONF = "django_sample.urls"
@@ -172,3 +174,7 @@ SYNC_BATCH_SIZE = 3
 TRANSFER_CHUNK_SIZE = 7
 
 TRANSFER_BATCH_SIZE = 3
+
+OTP_WEBAUTHN_RP_NAME = "django_sample"
+OTP_WEBAUTHN_RP_ID = "localhost"
+OTP_WEBAUTHN_ALLOWED_ORIGINS = ["http://localhost:8000"]
