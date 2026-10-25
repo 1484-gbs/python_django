@@ -1,0 +1,10 @@
+{% extends "two_factor/core/setup.html" %}
+
+{% block content %}
+{{block.super}}
+{% if wizard.steps.current == 'generator' %}
+<hr>
+{% include "myapp/passkey_register.html" %}
+{% include "myapp/passkey_login.html" %}
+{% endif %}
+{% endblock %}
