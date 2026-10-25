@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django_otp.plugins.otp_totp",
     "myapp.apps.MyappConfig",
     "two_factor",
+    "two_factor.plugins.webauthn",
     "api",
     "rest_framework",
     "shellapp.apps.ShellappConfig",
@@ -172,3 +173,6 @@ SYNC_BATCH_SIZE = 3
 TRANSFER_CHUNK_SIZE = 7
 
 TRANSFER_BATCH_SIZE = 3
+
+# TODO env
+TWO_FACTOR_WEBAUTHN_RP_NAME = "My Application"
