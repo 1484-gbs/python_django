@@ -65,6 +65,7 @@ wrapt = "*"
 xdis = "*"
 xlrd = "*"
 xlwt = "*"
+webauthn = "*"
 
 [dev-packages]
 
