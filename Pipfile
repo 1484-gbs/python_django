@@ -66,6 +66,8 @@ xdis = "*"
 xlrd = "*"
 xlwt = "*"
 webauthn = "*"
+gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 

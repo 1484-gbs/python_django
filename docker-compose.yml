@@ -8,6 +8,7 @@ services:
     volumes:
       # ホストマシンのディレクトリとコンテナ内のディレクトリを同期
       - .:/usr/src/python_django
+      - /usr/src/python_django/django_sample/staticfiles
     ports: 
       - "8000:8000"
     depends_on:
