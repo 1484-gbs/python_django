@@ -15,4 +15,4 @@ RUN apt-get update && \
 EXPOSE 8000
 
 # 開発用サーバーの起動
-CMD ["python", "./django_sample/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "./django_sample/manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
