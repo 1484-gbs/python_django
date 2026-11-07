@@ -6,3 +6,4 @@ from .signup import signup
 from .login import login
 from .logout import logout
 from .abstract_login_view import AbstractLoginRequiredView
+from .check_task_status import check_task_status

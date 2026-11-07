@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "shellapp.apps.ShellappConfig",
     "syncapp.apps.SyncappConfig",
+    "django_q",
 ]
 
 MIDDLEWARE = [
@@ -97,6 +98,10 @@ DATABASES = {
         "PASSWORD": "postgres",
         "HOST": "postgres_db",
         "PORT": "5432",
+    },
+    "task_db": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "tasks.sqlite3",
     },
     # "database2": {
     #     "ENGINE": "django.db.backends.mysql",
@@ -196,3 +201,14 @@ STORAGES = {
 
 # マニフェストにファイルが見つからなくても ValueError を投げないようにする
 WHITENOISE_MANIFEST_STRICT = False
+
+DATABASE_ROUTERS = ["django_sample.db_routers.BackgroundTaskRouter"]
+
+# --- Django-Q2 の設定 ---
+Q_CLUSTER = {
+    "name": "my_django_q_cluster",
+    "workers": 4,  # 同時に実行するタスク数（CPUコア数に合わせて調整）
+    "timeout": 60,  # タスクのタイムアウト時間（秒）
+    "retry": 120,  # 失敗したタスクを再試行するまでの時間（秒）
+    "orm": "task_db",  # 💡 ここで明示的に SQLite を指定します
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Django App{% endblock %}</title>
+
+    <style>
+        /* --- 自作トースト通知（ポップアップ）のスタイル --- */
+        .task-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            min-width: 300px;
+            padding: 16px 20px;
+            border-radius: 8px;
+            color: #ffffff;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        /* 表示状態のクラス */
+        .task-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 成功時（緑） */
+        .task-toast.success {
+            background-color: #2ecc71;
+        }
+
+        /* 失敗時（赤） */
+        .task-toast.error {
+            background-color: #e74c3c;
+        }
+
+        /* 閉じるボタン */
+        .task-toast .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: 15px;
+            line-height: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 💡 ナビゲーション（画面遷移テスト用） -->
+    <nav>
+        <a href="/myapp/">トップ画面</a> |
+        <a href="/myapp/create/">タスク作成画面</a>
+    </nav>
+
+    <hr>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+    <!-- 💡 各画面のメインコンテンツがここに入る -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- 💡 トースト通知用のHTML要素（初期状態は非表示） -->
+    <div id="task-notification" class="task-toast">
+        <span id="task-message"></span>
+        <button class="close-btn" onclick="hideToast()">&times;</button>
+    </div>
+
+    <!-- base.html のスクリプト部分を差し替え -->
+    <script>
+        function startTaskPolling() {
+            const checkInterval = setInterval(async () => {
+                try {
+                    const response = await fetch('/myapp/check-task-status/');
+                    if (!response.ok) return;
+
+                    const data = await response.json();
+
+                    // 💡 1. 実行中のタスクがない（または終了後に削除された）なら即座に監視を停止
+                    if (data.status === 'NONE') {
+                        clearInterval(checkInterval);
+                        console.log("ポーリングを停止しました (タスクなし)");
+                        return;
+                    }
+
+                    // 💡 2. タスクが完了（COMPLETED）した時の処理
+                    if (data.status === 'COMPLETED') {
+                        clearInterval(checkInterval); // タイマーを止める
+                        console.log("ポーリングを停止しました (タスク完了)");
+
+                        if (data.success) {
+                            showToast('✅ バックグラウンド処理が正常に完了しました！', 'success');
+                        } else {
+                            showToast('❌ バックグラウンド処理でエラーが発生しました。', 'error');
+                        }
+                    }
+
+                    // 'PENDING' の場合は何もせず次の2秒後を待つ
+                    if (data.status === 'PENDING') {
+                        console.log("タスク実行中...");
+                    }
+
+                } catch (error) {
+                    console.error('タスク状態の取得に失敗しました:', error);
+                    clearInterval(checkInterval); // エラー時も安全のため停止
+                }
+            }, 2000); // 2秒ごと
+        }
+
+        document.addEventListener('DOMContentLoaded', startTaskPolling);
+    </script>
+
+</body>
+
+</html>

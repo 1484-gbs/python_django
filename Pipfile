@@ -68,6 +68,7 @@ xlwt = "*"
 webauthn = "*"
 gunicorn = "*"
 whitenoise = "*"
+django-q2 = "*"
 
 [dev-packages]
 

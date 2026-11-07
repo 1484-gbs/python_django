@@ -1,3 +1,5 @@
+{% extends 'myapp/common/base.html' %}
+{% block content %}
 <form method="post">
     {% csrf_token %}
     {{form.as_p}}
@@ -41,3 +43,4 @@
     {% csrf_token %}
     <p><input type="submit" value="ログアウト"></p>
 </form>
+{% endblock %}
