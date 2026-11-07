@@ -1,3 +1,5 @@
+{% extends 'myapp/common/base.html' %}
+{% block content %}
 <h1>{{ employee.last_name }}{{ employee.first_name }}</h1>
 <ul>
     <li>{{ employee.employee_id }}</li>
@@ -12,3 +14,4 @@
     {{ sample_formset}}
     <input type="submit" id="button" name="button" value="送信">
 </form>
+{% endblock %}

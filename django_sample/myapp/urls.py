@@ -40,4 +40,5 @@ urlpatterns = [
         name="disable_tokens",
     ),
     path("", include(tf_urls)),
+    path("tasks/status/", views.check_task_status, name="check_task_status"),
 ]
